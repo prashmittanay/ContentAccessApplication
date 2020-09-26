@@ -26,7 +26,7 @@ public class CalendarCursorAdapter extends CursorAdapter {
         TextView calendarEventTextView = view.findViewById(R.id.text_calendar_event);
 
         String eventName = cursor.getString(cursor.getColumnIndex(
-                CalendarContract.Instances.TITLE));
+                CalendarContract.Events.TITLE));
 
         calendarEventTextView.setText(eventName);
     }
