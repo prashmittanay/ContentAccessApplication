@@ -29,6 +29,10 @@ public class ContactsActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+
+        mListView = findViewById(R.id.list_main_contacts);
+
+        requestContactsPermission();
     }
 
     @NonNull
