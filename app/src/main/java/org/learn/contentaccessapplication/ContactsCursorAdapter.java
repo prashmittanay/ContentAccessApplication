@@ -2,6 +2,7 @@ package org.learn.contentaccessapplication;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,12 @@ public class ContactsCursorAdapter extends CursorAdapter {
         TextView nameTextView = view.findViewById(R.id.text_contact_name);
         TextView numberTextView = view.findViewById(R.id.text_contact_number);
 
-        //TODO: get resources and map to these textviews
+        String name = cursor.getString(cursor.getColumnIndex(
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+        String number = cursor.getString(cursor.getColumnIndex(
+                ContactsContract.CommonDataKinds.Phone.NUMBER));
 
+        nameTextView.setText(name);
+        numberTextView.setText(number);
     }
 }
