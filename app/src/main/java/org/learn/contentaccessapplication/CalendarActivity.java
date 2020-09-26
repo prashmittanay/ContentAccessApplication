@@ -20,12 +20,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class CalendarActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private ListView mListView;
+    private TextView mTextView;
     public static final int PERMISSIONS_REQUEST_READ_CALENDAR = 1;
 
     @Override
@@ -33,7 +35,9 @@ public class CalendarActivity extends AppCompatActivity implements LoaderManager
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        mTextView = (TextView)findViewById(R.id.emptyElementCalendar);
         mListView = (ListView) findViewById(R.id.list_calendar_events);
+        mListView.setEmptyView(mTextView);
 
         requestCalendarPermission();
     }

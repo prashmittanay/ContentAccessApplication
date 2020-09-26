@@ -15,4 +15,15 @@
 
     </ListView>
 
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyElement"
+        android:text="No Event Currently on this device"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:padding="25dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/darker_gray"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

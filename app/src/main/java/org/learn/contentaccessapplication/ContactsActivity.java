@@ -19,18 +19,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ContactsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private ListView mListView;
+    private TextView mTextView;
     public static final int PERMISSIONS_REQUEST_READ_CONTACTS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
-
+        mTextView = (TextView)findViewById(R.id.emptyElement);
         mListView = findViewById(R.id.list_main_contacts);
+        mListView.setEmptyView(mTextView);
 
         requestContactsPermission();
     }

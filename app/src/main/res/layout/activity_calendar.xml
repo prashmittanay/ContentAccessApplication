@@ -14,4 +14,15 @@
         android:id="@+id/list_calendar_events">
 
     </ListView>
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyElementCalendar"
+        android:text="No Events on this device for the day!"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:padding="25dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/darker_gray"/>
 </RelativeLayout>
