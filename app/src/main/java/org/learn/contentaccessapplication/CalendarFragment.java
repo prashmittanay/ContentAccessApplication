@@ -33,16 +33,21 @@ public class CalendarFragment extends Fragment implements LoaderManager.LoaderCa
     private TextView mTextView;
     public static final int PERMISSIONS_REQUEST_READ_CALENDAR = 1;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mTextView = (TextView) container.findViewById(R.id.emptyElementCalendar);
-        mListView = (ListView) container.findViewById(R.id.list_calendar_events);
+        return inflater.inflate(R.layout.activity_calendar, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mTextView = (TextView) view.findViewById(R.id.emptyElementCalendar);
+        mListView = (ListView) view.findViewById(R.id.list_calendar_events);
         mListView.setEmptyView(mTextView);
 
         requestCalendarPermission();
-
-        return inflater.inflate(R.layout.activity_calendar, container, false);
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @NonNull

@@ -32,11 +32,17 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mTextView = (TextView) container.findViewById(R.id.emptyElement);
-        mListView = container.findViewById(R.id.list_main_contacts);
+        return inflater.inflate(R.layout.activity_contacts, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mTextView = (TextView) view.findViewById(R.id.emptyElement);
+        mListView = view.findViewById(R.id.list_main_contacts);
         mListView.setEmptyView(mTextView);
         requestContactsPermission();
-        return inflater.inflate(R.layout.activity_contacts, container, false);
     }
 
     @NonNull
