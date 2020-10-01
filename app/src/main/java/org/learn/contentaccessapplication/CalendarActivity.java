@@ -75,7 +75,7 @@ public class CalendarActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
+        loader = null;
     }
 
     @Override

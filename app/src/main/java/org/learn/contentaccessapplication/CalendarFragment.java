@@ -83,7 +83,7 @@ public class CalendarFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
+        loader = null;
     }
 
     @Override

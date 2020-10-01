@@ -58,7 +58,7 @@ public class ContactsActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
+        loader = null;
     }
 
     @Override

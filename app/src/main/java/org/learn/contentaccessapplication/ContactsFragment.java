@@ -65,7 +65,7 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
+        loader = null;
     }
 
     public void requestContactsPermission() {
