@@ -49,6 +49,8 @@ public class CalendarFragment extends Fragment implements LoaderManager.LoaderCa
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             getCalendarDetails();
+        } else {
+            mTextView.setText("Calendar Permissions Denied!");
         }
     }
 

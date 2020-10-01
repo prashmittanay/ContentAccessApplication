@@ -47,6 +47,8 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             getContacts();
+        } else {
+            mTextView.setText("Contacts Permissions Denied!");
         }
 
     }
