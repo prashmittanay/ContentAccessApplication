@@ -31,7 +31,6 @@ import java.util.Calendar;
 public class CalendarFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private ListView mListView;
     private TextView mTextView;
-    public static final int PERMISSIONS_REQUEST_READ_CALENDAR = 1;
 
 
     @Nullable
@@ -46,8 +45,11 @@ public class CalendarFragment extends Fragment implements LoaderManager.LoaderCa
         mListView = (ListView) view.findViewById(R.id.list_calendar_events);
         mListView.setEmptyView(mTextView);
 
-        requestCalendarPermission();
         super.onViewCreated(view, savedInstanceState);
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            getCalendarDetails();
+        }
     }
 
     @NonNull
@@ -86,48 +88,7 @@ public class CalendarFragment extends Fragment implements LoaderManager.LoaderCa
         loader = null;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_READ_CALENDAR:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getContacts();
-                } else {
-                    Toast.makeText(getContext(), "Contact Permission Disabled!", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            default:
-        }
-    }
-
-    public void requestCalendarPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_CALENDAR)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Read Calendar Permission");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setMessage("Please enable access to Calendar");
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            requestPermissions(new String[]{Manifest.permission.READ_CALENDAR}, PERMISSIONS_REQUEST_READ_CALENDAR);
-                        }
-                    });
-                    builder.show();
-                } else {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CALENDAR}, PERMISSIONS_REQUEST_READ_CALENDAR);
-                }
-            } else {
-                getContacts();
-            }
-        } else {
-            getContacts();
-        }
-    }
-
-    public void getContacts() {
+    public void getCalendarDetails() {
         LoaderManager.getInstance(this).initLoader(1, null, this);
     }
 }

@@ -27,7 +27,7 @@ import androidx.loader.content.Loader;
 public class ContactsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private ListView mListView;
     private TextView mTextView;
-    public static final int PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+
 
     @Nullable
     @Override
@@ -39,10 +39,16 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mTextView = (TextView) view.findViewById(R.id.emptyElement);
+        mTextView = view.findViewById(R.id.emptyElement);
         mListView = view.findViewById(R.id.list_main_contacts);
         mListView.setEmptyView(mTextView);
-        requestContactsPermission();
+
+
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            getContacts();
+        }
+
     }
 
     @NonNull
@@ -68,31 +74,7 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
         loader = null;
     }
 
-    public void requestContactsPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_CONTACTS)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Read Contacts Permission");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setMessage("Please enable access to contacts");
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
-                        }
-                    });
-                    builder.show();
-                } else {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
-                }
-            } else {
-                getContacts();
-            }
-        } else {
-            getContacts();
-        }
-    }
+
 
     public void getContacts() {
         LoaderManager.getInstance(this).initLoader(1, null, this);
